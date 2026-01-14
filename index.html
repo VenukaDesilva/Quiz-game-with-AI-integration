@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quiz Game</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <div class="container">
+            <main class="card" aria-label="Quiz game">
+                <header class="header">
+                    <h1 class="title">Quiz Game</h1>
+                    <p class="subtitle">Pick an answer and see your score.</p>
+                </header>
+
+                <div class="progress" aria-hidden="true">
+                    <div class="progress__bar" id="progress-bar"></div>
+                </div>
+
+                <section class="screen active" id="start-screen">
+                    <h2 class="screen__title">Ready?</h2>
+                    <p class="screen__text">Press Start to begin the quiz.</p>
+
+                    <div class="fields" aria-label="Quiz options">
+                        <label class="field">
+                            <span class="field__label">Question source</span>
+                            <select class="control" id="source-select">
+                                <option value="builtin" selected>Built-in (offline)</option>
+                                <option value="online">Online (random questions)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <p class="status">This quiz always uses 50 questions.</p>
+
+                    <p class="status" id="load-status" role="status" aria-live="polite"></p>
+                    <div class="actions">
+                        <button class="btn btn--primary" id="start-btn" type="button">Start Quiz</button>
+                    </div>
+                </section>
+
+                <section class="screen" id="quiz-screen" aria-live="polite">
+                    <div class="meta">
+                        <div class="badge badge--muted" id="question-counter">Question 1 / 5</div>
+                        <div class="badge" id="score-counter">Score: 0</div>
+                    </div>
+
+                    <h2 class="question" id="question-title">Question text</h2>
+                    <div class="answers" id="answers" role="list"></div>
+                    <p class="feedback" id="feedback" aria-live="polite"></p>
+
+                    <div class="actions">
+                        <button class="btn btn--primary" id="next-btn" type="button" disabled>Next</button>
+                    </div>
+                </section>
+
+                <section class="screen" id="result-screen">
+                    <h2 class="screen__title">Results</h2>
+                    <p class="screen__text" id="result-text">You scored 0/0.</p>
+                    <div class="actions">
+                        <button class="btn btn--primary" id="restart-btn" type="button">Play Again</button>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </body>
+</html>
