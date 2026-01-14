@@ -16,6 +16,23 @@ const builtInQuestions = [
 		correctIndex: 0,
 	},
 	{
+		question: "What does CSS stand for?",
+		answers: [
+			"Creative Style Sheets","Cascading Style Sheets","Computer Style Sheets","Colorful Style Sheets",
+		],
+		correctIndex: 1,
+	},
+	{
+		question: "What year was JavaScript launched?",
+		answers: ["1995", "2000", "1990", "1985"],
+		correctIndex: 0,
+	},
+	{
+		question: "Which company developed JavaScript?",
+		answers: ["Netscape", "Microsoft", "Sun Microsystems", "IBM"],
+		correctIndex: 0,
+	},
+	{
 		question: "Which CSS property changes text color?",
 		answers: ["font-style", "color", "background-color", "text-decoration"],
 		correctIndex: 1,
@@ -73,6 +90,19 @@ function shuffle(array) {
 		[arr[i], arr[j]] = [arr[j], arr[i]];
 	}
 	return arr;
+}
+
+function randomizeAnswers(questionList) {
+	return questionList.map((q) => {
+		const correctAnswer = q.answers[q.correctIndex];
+		const answers = shuffle(q.answers);
+		const correctIndex = answers.indexOf(correctAnswer);
+		return {
+			question: q.question,
+			answers,
+			correctIndex: correctIndex === -1 ? 0 : correctIndex,
+		};
+	});
 }
 
 function setStatus(message) {
@@ -212,12 +242,12 @@ async function startQuiz() {
 			setStatus(`Loaded ${questions.length} online questions.`);
 		} else {
 			// Built-in fallback cannot reach 50 unless you expand the list.
-			questions = shuffle(builtInQuestions);
+			questions = randomizeAnswers(shuffle(builtInQuestions));
 			setStatus(`Loaded ${questions.length} built-in questions.`);
 		}
 	} catch (err) {
 		console.error(err);
-		questions = shuffle(builtInQuestions);
+		questions = randomizeAnswers(shuffle(builtInQuestions));
 		setStatus("Online source not available. Using built-in questions instead.");
 	} finally {
 		els.startBtn.disabled = false;
